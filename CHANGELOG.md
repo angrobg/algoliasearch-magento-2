@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## 3.6.1
+## 3.7.0
 
 ### UPDATES
 - Updated Algolia Php Client version 2.5.1 to 3.2.0(#1200)

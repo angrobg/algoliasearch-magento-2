@@ -319,7 +319,7 @@ class ConfigPatch implements SchemaPatchInterface
             }
             $this->config->saveConfig($path, $value, 'default', 0);
         }
-        
+
         $this->moduleDataSetup->getConnection()->endSetup();
     }
 

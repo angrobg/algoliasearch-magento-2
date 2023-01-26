@@ -1,4 +1,6 @@
-define([], function () {
+define([
+    'mage/translate'
+], function ($t) {
     return {
         getSuggestionsHtml: function (item, html) {
             return html`<a class="aa-ItemLink" href="/search?q=${item.query}">
@@ -11,7 +13,7 @@ define([], function () {
         },
 
         getNoResultHtml: function () {
-            return 'No Results';
+            return $t('No Results');
         }
     };
 });

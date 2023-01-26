@@ -1,4 +1,6 @@
-define([], function () {
+define([
+    'mage/translate'
+], function ($t) {
     return {
         getPagesHtml: function (item, components, html) {
             return html`<a class="algoliasearch-autocomplete-hit" href="${item.url}">
@@ -17,7 +19,7 @@ define([], function () {
         },
 
         getNoResultHtml: function () {
-            return 'No Results';
+            return $t('No Results');
         }
     };
 });

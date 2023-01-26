@@ -131,7 +131,7 @@ requirejs([
 
                 for (var i = 0; i < clickEvents.length; i++) {
                     var clickEvent = this.config.personalization.clickedEvents[clickEvents[i]];
-                    if (clickEvent.enabled && clickEvent.method == 'clickedObjectIDs') {
+                    if (clickEvent.enabled && clickEvent.method === 'clickedObjectIDs') {
                         $(document).on('click', clickEvent.selector, function(e) {
                             var $this = $(this);
                             if ($this.data('clicked')) return;

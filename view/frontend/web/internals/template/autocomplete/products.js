@@ -1,4 +1,6 @@
-define([], function () {
+define([
+    'mage/translate'
+], function ($t) {
     return {
         getProductsHtml: function (_data, components, html) {
             var color = '';
@@ -8,21 +10,30 @@ define([], function () {
             var origFormatedVar = algoliaConfig.origFormatedVar;
             var tierFormatedvar = algoliaConfig.tierFormatedVar;
             if (algoliaConfig.priceGroup == null) {
-                return html`<a class="algoliasearch-autocomplete-hit" href="${_data.__autocomplete_queryID != null ? _data.urlForInsights : _data.url}" data-objectId="${_data.objectID}" data-index="${_data.__autocomplete_indexName}">
+                return html`<a class="algoliasearch-autocomplete-hit"
+                               href="${_data.__autocomplete_queryID != null ? _data.urlForInsights : _data.url}"
+                               data-objectId="${_data.objectID}" data-index="${_data.__autocomplete_indexName}">
                     <div class="thumb"><img src="${_data.thumbnail_url || ''}" alt="${_data.name || ''}"/></div>
                     <div class="info">
                         ${components.Highlight({hit: _data, attribute: 'name'}) || ''}
                         <div class="algoliasearch-autocomplete-category">
-                            ${color && color != '' ? html `color : ${components.Highlight({hit: _data, attribute: 'color'})}` :
-                    _data.categories_without_path && _data.categories_without_path.length != 0 ? html `in ${components.Highlight({hit: _data, attribute: 'categories_without_path'})}` : ''}
+                            ${color && color != '' ? html`color : ${components.Highlight({
+                                        hit: _data,
+                                        attribute: 'color'
+                                    })}` :
+                                    _data.categories_without_path && _data.categories_without_path.length != 0 ? html`in ${components.Highlight({
+                                        hit: _data,
+                                        attribute: 'categories_without_path'
+                                    })}` : ''}
                         </div>
-                        ${_data['price'] !== undefined ? html `<div className="algoliasearch-autocomplete-price">
+                        ${_data['price'] !== undefined ? html`
+                            <div className="algoliasearch-autocomplete-price">
                             <span className="after_special ${origFormatedVar != null ? 'promotion' : ''}">
                                 ${_data['price'][algoliaConfig.currencyCode]['default_formated']}
                             </span>
-                            ${_data['price'][algoliaConfig.currencyCode]['default_original_formated'] != null ? html`
-                                <span class="before_special">${_data['price'][algoliaConfig.currencyCode]['default_original_formated']}</span>` : ''}
-                        </div>` : ''}
+                                ${_data['price'][algoliaConfig.currencyCode]['default_original_formated'] != null ? html`
+                                    <span class="before_special">${_data['price'][algoliaConfig.currencyCode]['default_original_formated']}</span>` : ''}
+                            </div>` : ''}
                     </div>
                 </a>`;
             } else {
@@ -54,7 +65,7 @@ define([], function () {
         },
 
         getNoResultHtml: function () {
-            return 'No Results';
+            return $t('No Results');
         },
 
         getFooterHtml: function (html, orsTab, allUrl, productResult) {

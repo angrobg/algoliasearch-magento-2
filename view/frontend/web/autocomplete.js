@@ -2,7 +2,10 @@ let algoliaAutocomplete;
 let suggestionSection = false;
 let algoliaFooter;
 let productResult = [];
-requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'suggestionsHtml', 'additionalHtml', 'domReady!'], function(algoliaBundle, pagesHtml, categoriesHtml, productsHtml, suggestionsHtml, additionalHtml) {
+requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml',
+    'suggestionsHtml', 'additionalHtml', 'domReady!'], function ($, $t, algoliaBundle, pagesHtml,
+                                                                 categoriesHtml, productsHtml,
+                                                                 suggestionsHtml, additionalHtml) {
     algoliaAutocomplete = algoliaBundle;
     algoliaBundle.$(function ($) {
 
@@ -64,11 +67,10 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                 });
 
                 colors = colors.join(', ');
-                hit._highlightResult.color = { value: colors };
-            }
-            else {
+                hit._highlightResult.color = {value: colors};
+            } else {
                 if (hit._highlightResult.color && hit._highlightResult.color.matchLevel === 'none') {
-                    hit._highlightResult.color = { value: '' };
+                    hit._highlightResult.color = {value: ''};
                 }
             }
 
@@ -116,7 +118,7 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
 
             var correctFKey = getCookie('form_key');
 
-            if(correctFKey != "" && algoliaConfig.instant.addToCartParams.formKey != correctFKey) {
+            if (correctFKey != "" && algoliaConfig.instant.addToCartParams.formKey != correctFKey) {
                 algoliaConfig.instant.addToCartParams.formKey = correctFKey;
             }
 
@@ -168,24 +170,24 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
 
                 options = algolia.triggerHooks('beforeAutocompleteProductSourceOptions', options);
 
-                source =  {
+                source = {
                     name: section.name,
                     hitsPerPage: section.hitsPerPage,
-                    paramName:algolia_client.initIndex(algoliaConfig.indexName + "_" + section.name),
-                    options:options,
+                    paramName: algolia_client.initIndex(algoliaConfig.indexName + "_" + section.name),
+                    options: options,
                     templates: {
                         noResults() {
                             return productsHtml.getNoResultHtml();
                         },
-                        item({ item, components, html }) {
-                            if(suggestionSection){
+                        item({item, components, html}) {
+                            if (suggestionSection) {
                                 algoliaAutocomplete.$('.aa-Panel').addClass('productColumn2');
                                 algoliaAutocomplete.$('.aa-Panel').removeClass('productColumn1');
-                            }else{
+                            } else {
                                 algoliaAutocomplete.$('.aa-Panel').removeClass('productColumn2');
                                 algoliaAutocomplete.$('.aa-Panel').addClass('productColumn1');
                             }
-                            if(algoliaFooter && algoliaFooter !== undefined && algoliaFooter !== null && algoliaAutocomplete.$('#algoliaFooter').length === 0){
+                            if (algoliaFooter && algoliaFooter !== undefined && algoliaFooter !== null && algoliaAutocomplete.$('#algoliaFooter').length === 0) {
                                 algoliaAutocomplete.$('.aa-PanelLayout').append(algoliaFooter);
                             }
                             var _data = transformAutocompleteHit(item, algoliaConfig.priceKey, $);
@@ -193,7 +195,7 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                         },
                         footer({html}) {
                             var keys = [];
-                            for (var i = 0; i<algoliaConfig.facets.length; i++) {
+                            for (var i = 0; i < algoliaConfig.facets.length; i++) {
                                 if (algoliaConfig.facets[i].attribute == "categories" && productResult[0]) {
                                     for (var key in productResult[0].facets['categories.level0']) {
                                         var url = algoliaConfig.baseUrl + '/catalogsearch/result/?q=' + encodeURIComponent(productResult[0].query) + '#q=' + encodeURIComponent(productResult[0].query) + '&hFR[categories.level0][0]=' + encodeURIComponent(key) + '&idx=' + algoliaConfig.indexName + '_products';
@@ -217,8 +219,8 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                                 for (var i = 0; i < keys.length && i < 2; i++) {
                                     orsTab.push(
                                         {
-                                            url:keys[i].url,
-                                            name:keys[i].key
+                                            url: keys[i].url,
+                                            name: keys[i].key
                                         }
                                     );
                                 }
@@ -229,17 +231,15 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                         }
                     }
                 };
-            }
-            else if (section.name === "categories")
-            {
+            } else if (section.name === "categories") {
                 if (section.name === "categories" && algoliaConfig.showCatsNotIncludedInNavigation === false) {
                     options.numericFilters = 'include_in_menu=1';
                 }
-                source =  {
+                source = {
                     name: section.name || i,
                     hitsPerPage: section.hitsPerPage,
-                    paramName:algolia_client.initIndex(algoliaConfig.indexName + "_" + section.name),
-                    options:options,
+                    paramName: algolia_client.initIndex(algoliaConfig.indexName + "_" + section.name),
+                    options: options,
                     templates: {
                         noResults() {
                             return categoriesHtml.getNoResultHtml();
@@ -247,19 +247,17 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                         header() {
                             return categoriesHtml.getHeaderHtml(section);
                         },
-                        item({ item, components, html }) {
+                        item({item, components, html}) {
                             return categoriesHtml.getCategoriesHtml(item, components, html);
                         }
                     }
                 };
-            }
-            else if (section.name === "pages")
-            {
-                source =  {
+            } else if (section.name === "pages") {
+                source = {
                     name: section.name || i,
                     hitsPerPage: section.hitsPerPage,
-                    paramName:algolia_client.initIndex(algoliaConfig.indexName + "_" + section.name),
-                    options:options,
+                    paramName: algolia_client.initIndex(algoliaConfig.indexName + "_" + section.name),
+                    options: options,
                     templates: {
                         noResults() {
                             return pagesHtml.getNoResultHtml();
@@ -267,14 +265,12 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                         header() {
                             return pagesHtml.getHeaderHtml(section);
                         },
-                        item({ item, components, html }) {
+                        item({item, components, html}) {
                             return pagesHtml.getPagesHtml(item, components, html);
                         }
                     }
                 };
-            }
-            else if (section.name === "suggestions")
-            {
+            } else if (section.name === "suggestions") {
                 var suggestions_index = algolia_client.initIndex(algoliaConfig.indexName + "_suggestions");
                 var products_index = algolia_client.initIndex(algoliaConfig.indexName + "_products");
 
@@ -283,10 +279,11 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                     name: section.name,
                     hitsPerPage: section.hitsPerPage,
                     paramName: suggestions_index,
-                    options:options,
+                    options: options,
                     templates: {
-                        item({ item, html }) {
-                            return html`<div>Suggestion List</div>`;
+                        item({item, html}) {
+                            return html`
+                                <div>Suggestion List</div>`;
                         }
                     }
                 };
@@ -297,7 +294,7 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                     displayKey: 'value',
                     name: section.name || i,
                     hitsPerPage: section.hitsPerPage,
-                    options:options,
+                    options: options,
                     templates: {
                         noResults() {
                             return additionalHtml.getNoResultHtml();
@@ -305,7 +302,7 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                         header() {
                             return additionalHtml.getHeaderHtml(section);
                         },
-                        item({ item, components, html }) {
+                        item({item, components, html}) {
                             return additionalHtml.getAdditionalHtml(item, components, html);
                         }
                     }
@@ -317,15 +314,27 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
         /** Add products and categories that are required sections **/
         /** Add autocomplete menu sections **/
         if (algoliaConfig.autocomplete.nbOfProductsSuggestions > 0) {
-            algoliaConfig.autocomplete.sections.unshift({ hitsPerPage: algoliaConfig.autocomplete.nbOfProductsSuggestions, label: algoliaConfig.translations.products, name: "products"});
+            algoliaConfig.autocomplete.sections.unshift({
+                hitsPerPage: algoliaConfig.autocomplete.nbOfProductsSuggestions,
+                label: algoliaConfig.translations.products,
+                name: "products"
+            });
         }
 
         if (algoliaConfig.autocomplete.nbOfCategoriesSuggestions > 0) {
-            algoliaConfig.autocomplete.sections.unshift({ hitsPerPage: algoliaConfig.autocomplete.nbOfCategoriesSuggestions, label: algoliaConfig.translations.categories, name: "categories"});
+            algoliaConfig.autocomplete.sections.unshift({
+                hitsPerPage: algoliaConfig.autocomplete.nbOfCategoriesSuggestions,
+                label: algoliaConfig.translations.categories,
+                name: "categories"
+            });
         }
 
         if (algoliaConfig.autocomplete.nbOfQueriesSuggestions > 0) {
-            algoliaConfig.autocomplete.sections.unshift({ hitsPerPage: algoliaConfig.autocomplete.nbOfQueriesSuggestions, label: '', name: "suggestions"});
+            algoliaConfig.autocomplete.sections.unshift({
+                hitsPerPage: algoliaConfig.autocomplete.nbOfQueriesSuggestions,
+                label: '',
+                name: "suggestions"
+            });
         }
 
         /**
@@ -337,11 +346,11 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
             let querySuggestionsPlugin = "";
             var options = {
                 container: '#algoliaAutocomplete',
-                placeholder: 'Search for products, categories, ...',
+                placeholder: $t('Search for products, categories, ...'),
                 debug: algoliaConfig.autocomplete.isDebugEnabled,
                 detachedMediaQuery: 'none',
-                onSubmit(data){
-                    if(data.state.query && data.state.query !== null && data.state.query !== ""){
+                onSubmit(data) {
+                    if (data.state.query && data.state.query !== null && data.state.query !== "") {
                         window.location.href = `/catalogsearch/result/?q=${data.state.query}`;
                     }
                 },
@@ -356,7 +365,7 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
             }
 
             if (algoliaConfig.removeBranding === false) {
-                algoliaFooter = '<div id="algoliaFooter" class="footer_algolia"><a href="https://www.algolia.com/?utm_source=magento&utm_medium=link&utm_campaign=magento_autocompletion_menu" title="Search by Algolia" target="_blank"><img src="' +algoliaConfig.urls.logo + '"  alt="Search by Algolia" /></a></div>';
+                algoliaFooter = '<div id="algoliaFooter" class="footer_algolia"><a href="https://www.algolia.com/?utm_source=magento&utm_medium=link&utm_campaign=magento_autocompletion_menu" title="Search by Algolia" target="_blank"><img src="' + algoliaConfig.urls.logo + '"  alt="Search by Algolia" /></a></div>';
             }
 
             sources = algolia.triggerHooks('beforeAutocompleteSources', algoliaConfig.autocomplete.sections, algolia_client, algoliaBundle);
@@ -392,37 +401,37 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
             });
 
             let autocompleteConfig = [];
-            sources.forEach(function(data){
-                if(data.name === "suggestions"){
+            sources.forEach(function (data) {
+                if (data.name === "suggestions") {
                     suggestionSection = true;
                     querySuggestionsPlugin = algoliaAutocomplete.createQuerySuggestionsPlugin.createQuerySuggestionsPlugin({
                         searchClient,
                         indexName: data.paramName.indexName,
-                        transformSource({ source }) {
+                        transformSource({source}) {
                             return {
                                 ...source,
-                                getItemUrl({ item }) {
+                                getItemUrl({item}) {
                                     return `/search?q=${item.query}`;
                                 },
                                 templates: {
                                     noResults() {
-                                        return 'No results.';
+                                        return $t('No results.');
                                     },
                                     header() {
                                         return sources[0].name;
                                     },
                                     item(params) {
-                                        const { item, html } = params;
+                                        const {item, html} = params;
                                         return suggestionsHtml.getSuggestionsHtml(item, html)
                                     },
                                 },
                             };
                         },
                     });
-                }else if(data.name === "products"){
+                } else if (data.name === "products") {
                     autocompleteConfig.unshift({
                         sourceId: data.name,
-                        getItems({ query }) {
+                        getItems({query}) {
                             return algoliaBundle.getAlgoliaResults({
                                 searchClient,
                                 queries: [
@@ -432,7 +441,7 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                                         params: data.options,
                                     },
                                 ],
-                                transformResponse({ results, hits }) {
+                                transformResponse({results, hits}) {
                                     productResult = results;
                                     return hits;
                                 },
@@ -440,10 +449,10 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
                         },
                         templates: data.templates,
                     })
-                }else{
+                } else {
                     autocompleteConfig.push({
                         sourceId: data.name,
-                        getItems({ query }) {
+                        getItems({query}) {
                             return algoliaBundle.getAlgoliaResults({
                                 searchClient,
                                 queries: [
@@ -468,16 +477,16 @@ requirejs(['algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml', 'sugg
             //Autocomplete insight click conversion
             if (algoliaConfig.ccAnalytics.enabled
                 && algoliaConfig.ccAnalytics.conversionAnalyticsMode !== 'disabled') {
-                    jQuery(document).on('click', '.algoliasearch-autocomplete-hit', function(){
-                        var $this = $(this);
-                        if ($this.data('clicked')) return;
-                        let itemUrl = jQuery(this).attr('href');
-                        let eventData = algoliaInsights.buildEventData(
-                            'Clicked', getHitsUrlParameter(itemUrl, 'objectID'), getHitsUrlParameter(itemUrl, 'indexName'), 1, getHitsUrlParameter(itemUrl, 'queryID')
-                        );
-                        algoliaInsights.trackClick(eventData);
-                        $this.attr('data-clicked', true);
-                    });
+                jQuery(document).on('click', '.algoliasearch-autocomplete-hit', function () {
+                    var $this = $(this);
+                    if ($this.data('clicked')) return;
+                    let itemUrl = jQuery(this).attr('href');
+                    let eventData = algoliaInsights.buildEventData(
+                        'Clicked', getHitsUrlParameter(itemUrl, 'objectID'), getHitsUrlParameter(itemUrl, 'indexName'), 1, getHitsUrlParameter(itemUrl, 'queryID')
+                    );
+                    algoliaInsights.trackClick(eventData);
+                    $this.attr('data-clicked', true);
+                });
             }
         });
     });

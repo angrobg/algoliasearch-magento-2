@@ -415,7 +415,7 @@ requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categories
                                 },
                                 templates: {
                                     noResults() {
-                                        return $t('No results.');
+                                        return $t('No Results');
                                     },
                                     header() {
                                         return sources[0].name;

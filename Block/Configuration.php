@@ -287,7 +287,7 @@ class Configuration extends Algolia implements CollectionDataSourceInterface
                 'seeIn' => __('See products in'),
                 'orIn' => __('or in'),
                 'noProducts' => __('No products for query'),
-                'noResults' => __('No results'),
+                'noResults' => __('No Results'),
                 'refine' => __('Refine'),
                 'selectedFilters' => __('Selected Filters'),
                 'clearAll' => __('Clear all'),

@@ -11,6 +11,7 @@ Search,Search
 Search:,Search:
 in,in
 Categories,Categories
+Pages,Pages
 Products,Products
 "Search by","Search by"
 Refine,Refine
@@ -32,7 +33,7 @@ or,or
 "Next page","Next page"
 to,to
 Go,Go
-"No results","No results"
+"No Results","No Results"
 "See products in","See products in"
 "All departments","All departments"
 "or in","or in"

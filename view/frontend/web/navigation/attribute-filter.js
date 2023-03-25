@@ -9,7 +9,7 @@ define([
   return Component.extend({
     defaults: {
       template: "Algolia_AlgoliaSearch/attribute-filter",
-      noResultLabel : $.mage.__("No results.")
+      noResultLabel : $.mage.__("No Results")
     },
 
     /* Initialization */

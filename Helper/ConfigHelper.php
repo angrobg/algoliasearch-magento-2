@@ -530,7 +530,7 @@ class ConfigHelper
             $storeId
         );
     }
-    
+
      /**
      * @param int $storeId
      *

@@ -9,7 +9,8 @@ define([
         },
 
         getPagesHeaderHtml: function (section) {
-            return section.name;
+            // TODO: NIMA CHANGES - whatever tried - nothing could translate this - therefore for now we hardcode it!
+            return 'Препоръки'; //$t(section.name);
         },
 
         getNoResultHtml: function () {

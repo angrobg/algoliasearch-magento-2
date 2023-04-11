@@ -277,10 +277,17 @@ requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categories
                 source = {
                     displayKey: 'query',
                     name: section.name,
+                    label: 'Препоръки',
                     hitsPerPage: section.hitsPerPage,
                     paramName: suggestions_index,
                     options: options,
                     templates: {
+                        noResults() {
+                            return suggestionsHtml.getNoResultHtml();
+                        },
+                        header() {
+                            return suggestionsHtml.getHeaderHtml(section);
+                        },
                         item({item, html}) {
                             return html`
                                 <div>Suggestion List</div>`;
@@ -418,7 +425,10 @@ requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categories
                                         return $t('No Results');
                                     },
                                     header() {
-                                        return sources[0].name;
+                                        // TODO: NIMA changes
+                                        // return $t('Suggestions');
+                                        return 'Препоръчани резултати';
+                                        // return sources[0].name;
                                     },
                                     item(params) {
                                         const {item, html} = params;

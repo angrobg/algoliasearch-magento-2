@@ -2,8 +2,10 @@ let algoliaAutocomplete;
 let suggestionSection = false;
 let algoliaFooter;
 let productResult = [];
-requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml',
-    'suggestionsHtml', 'additionalHtml', 'domReady!'], function ($, $t, algoliaBundle, pagesHtml,
+requirejs(['jquery',
+    'domReady!',
+    'mage/translate', 'algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml',
+    'suggestionsHtml', 'additionalHtml', 'domReady!'], function ($, domReady, $t, algoliaBundle, pagesHtml,
                                                                  categoriesHtml, productsHtml,
                                                                  suggestionsHtml, additionalHtml) {
     algoliaAutocomplete = algoliaBundle;

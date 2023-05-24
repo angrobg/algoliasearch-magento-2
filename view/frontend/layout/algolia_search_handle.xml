@@ -20,7 +20,7 @@
         </referenceBlock>
 
         <referenceBlock name="main.content">
-            <block class="Magento\Framework\View\Element\Template" before="-" name="algolia.beforecontent" template="Algolia_AlgoliaSearch::internals/beforecontent.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="algolia.beforecontent" template="Algolia_AlgoliaSearch::internals/beforecontent.phtml"/>
         </referenceBlock>
 
         <referenceBlock name="before.body.end">

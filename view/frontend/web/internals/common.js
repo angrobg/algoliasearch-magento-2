@@ -50,7 +50,7 @@ var algolia = {
     }
 };
 
-requirejs(['algoliaBundle'], function(algoliaBundle) {
+requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
     algoliaBundle.$(function ($) {
         window.isMobile = function() {
             var check = false;

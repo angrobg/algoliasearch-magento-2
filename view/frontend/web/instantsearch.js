@@ -1,6 +1,11 @@
 requirejs([
     'domReady!', 'algoliaBundle', 'Magento_Catalog/js/price-utils'], function (domReady, algoliaBundle, priceUtils) {
     algoliaBundle.$(function ($) {
+        // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+        if (!(algoliaConfig || null)) {
+            return;
+        }
+
         /** We have nothing to do here if instantsearch is not enabled **/
         if (!algoliaConfig.instant.enabled || !(algoliaConfig.isSearchPage || !algoliaConfig.autocomplete.enabled)) {
             return;
@@ -448,6 +453,11 @@ requirejs([
 
         /** Add all facet widgets to instantsearch object **/
         window.getFacetWidget = function (facet, templates) {
+            // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+            if (!(algoliaConfig || null)) {
+                return false;
+            }
+
             var panelOptions = {
                 templates: {
                     header: '<div class="name">'
@@ -672,6 +682,11 @@ requirejs([
     }
 
     function addSearchForFacetValues(facet, options) {
+        // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+        if (!(algoliaConfig || null)) {
+            return;
+        }
+
         if (facet.searchable === '1') {
             options.searchable = true;
             options.searchableIsAlwaysActive = false;

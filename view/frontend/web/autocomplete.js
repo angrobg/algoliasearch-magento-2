@@ -12,7 +12,7 @@ requirejs(['jquery',
     algoliaBundle.$(function ($) {
 
         // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-        if (!(algoliaConfig || null)) {
+        if (!(window['algoliaConfig'] || null)) {
             return;
         }
 
@@ -33,7 +33,7 @@ requirejs(['jquery',
         // autocomplete code moved from common.js to autocomplete.js
         window.transformAutocompleteHit = function (hit, price_key, $, helper) {
             // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-            if (!(algoliaConfig || null)) {
+            if (!(window['algoliaConfig'] || null)) {
                 return false;
             }
 
@@ -164,7 +164,7 @@ requirejs(['jquery',
 
         window.getAutocompleteSource = function (section, algolia_client, $, i) {
             // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-            if (!(algoliaConfig || null)) {
+            if (!(window['algoliaConfig'] || null)) {
                 return null;
             }
 

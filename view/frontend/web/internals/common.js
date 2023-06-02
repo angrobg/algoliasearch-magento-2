@@ -72,7 +72,7 @@ requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
 
         window.transformHit = function (hit, price_key, helper) {
             // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-            if (!(algoliaConfig || null)) {
+            if (!(window['algoliaConfig'] || null)) {
                 return;
             }
 
@@ -248,7 +248,7 @@ requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
         };
 
         // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-        if (!(algoliaConfig || null)) {
+        if (!(window['algoliaConfig'] || null)) {
             return;
         }
 
@@ -298,7 +298,7 @@ requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
         /** Handle small screen **/
         $('body').on('click', '#refine-toggle', function () {
             // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-            if (!(algoliaConfig || null)) {
+            if (!(window['algoliaConfig'] || null)) {
                 return;
             }
 
@@ -349,7 +349,7 @@ requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
             stateMapping: {
                 stateToRoute: function (uiState) {
                     // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-                    if (!(algoliaConfig || null)) {
+                    if (!(window['algoliaConfig'] || null)) {
                         return;
                     }
 
@@ -390,7 +390,7 @@ requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
                 },
                 routeToState: function (routeParameters) {
                     // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-                    if (!(algoliaConfig || null)) {
+                    if (!(window['algoliaConfig'] || null)) {
                         return;
                     }
 

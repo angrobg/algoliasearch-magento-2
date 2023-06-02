@@ -2,7 +2,7 @@ requirejs([
     'domReady!', 'algoliaBundle', 'Magento_Catalog/js/price-utils'], function (domReady, algoliaBundle, priceUtils) {
     algoliaBundle.$(function ($) {
         // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-        if (!(algoliaConfig || null)) {
+        if (!(window['algoliaConfig'] || null)) {
             return;
         }
 
@@ -454,7 +454,7 @@ requirejs([
         /** Add all facet widgets to instantsearch object **/
         window.getFacetWidget = function (facet, templates) {
             // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-            if (!(algoliaConfig || null)) {
+            if (!(window['algoliaConfig'] || null)) {
                 return false;
             }
 
@@ -683,7 +683,7 @@ requirejs([
 
     function addSearchForFacetValues(facet, options) {
         // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
-        if (!(algoliaConfig || null)) {
+        if (!(window['algoliaConfig'] || null)) {
             return;
         }
 

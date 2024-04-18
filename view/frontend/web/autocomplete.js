@@ -2,12 +2,19 @@ let algoliaAutocomplete;
 let suggestionSection = false;
 let algoliaFooter;
 let productResult = [];
-requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml',
-    'suggestionsHtml', 'additionalHtml', 'domReady!'], function ($, $t, algoliaBundle, pagesHtml,
+requirejs(['jquery',
+    'domReady!',
+    'mage/translate', 'algoliaBundle', 'pagesHtml', 'categoriesHtml', 'productsHtml',
+    'suggestionsHtml', 'additionalHtml', 'domReady!'], function ($, domReady, $t, algoliaBundle, pagesHtml,
                                                                  categoriesHtml, productsHtml,
                                                                  suggestionsHtml, additionalHtml) {
     algoliaAutocomplete = algoliaBundle;
     algoliaBundle.$(function ($) {
+
+        // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+        if (!(window['algoliaConfig'] || null)) {
+            return;
+        }
 
         /** We have nothing to do here if autocomplete is disabled **/
         if (!algoliaConfig.autocomplete.enabled) {
@@ -25,6 +32,11 @@ requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categories
 
         // autocomplete code moved from common.js to autocomplete.js
         window.transformAutocompleteHit = function (hit, price_key, $, helper) {
+            // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+            if (!(window['algoliaConfig'] || null)) {
+                return false;
+            }
+
             if (Array.isArray(hit.categories))
                 hit.categories = hit.categories.join(', ');
 
@@ -151,6 +163,11 @@ requirejs(['jquery', 'mage/translate', 'algoliaBundle', 'pagesHtml', 'categories
         };
 
         window.getAutocompleteSource = function (section, algolia_client, $, i) {
+            // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+            if (!(window['algoliaConfig'] || null)) {
+                return null;
+            }
+
             if (section.hitsPerPage <= 0)
                 return null;
 

@@ -1,9 +1,10 @@
 var algoliaInsights;
 requirejs([
     'jquery',
+    'domReady!',
     'algoliaAnalytics',
     'algoliaBundle',
-], function ($, algoliaAnalyticsWrapper, algoliaBundle) {
+], function ($, domReady, algoliaAnalyticsWrapper, algoliaBundle) {
 
     algoliaAnalytics = algoliaAnalyticsWrapper.default;
 
@@ -13,7 +14,7 @@ requirejs([
         isTracking: false,
         hasAddedParameters: false,
 
-        track: function(algoliaConfig) {
+        track: function (algoliaConfig) {
 
             if (this.isTracking) {
                 return;
@@ -34,7 +35,7 @@ requirejs([
             }
         },
 
-        initializeAnalytics: function() {
+        initializeAnalytics: function () {
             algoliaAnalytics.init({
                 appId: this.config.applicationId,
                 apiKey: this.config.apiKey
@@ -48,7 +49,7 @@ requirejs([
 
         },
 
-        addSearchParameters: function() {
+        addSearchParameters: function () {
 
             if (this.hasAddedParameters) {
                 return;
@@ -72,7 +73,7 @@ requirejs([
 
         },
 
-        bindData: function() {
+        bindData: function () {
 
             var persoConfig = this.config.personalization;
 
@@ -86,7 +87,7 @@ requirejs([
             }
         },
 
-        bindEvents: function() {
+        bindEvents: function () {
 
             this.bindClickedEvents();
             this.bindViewedEvents();
@@ -95,7 +96,7 @@ requirejs([
 
         },
 
-        bindClickedEvents: function() {
+        bindClickedEvents: function () {
 
             var self = this;
 
@@ -110,7 +111,7 @@ requirejs([
 
 
             if (this.config.ccAnalytics.enabled) {
-                $(document).on('click', this.config.ccAnalytics.ISSelector, function() {
+                $(document).on('click', this.config.ccAnalytics.ISSelector, function () {
                     var $this = $(this);
                     if ($this.data('clicked')) return;
 
@@ -132,7 +133,7 @@ requirejs([
                 for (var i = 0; i < clickEvents.length; i++) {
                     var clickEvent = this.config.personalization.clickedEvents[clickEvents[i]];
                     if (clickEvent.enabled && clickEvent.method === 'clickedObjectIDs') {
-                        $(document).on('click', clickEvent.selector, function(e) {
+                        $(document).on('click', clickEvent.selector, function (e) {
                             var $this = $(this);
                             if ($this.data('clicked')) return;
 
@@ -177,7 +178,7 @@ requirejs([
             }
         },
 
-        getClickedEventBySelector: function(selector) {
+        getClickedEventBySelector: function (selector) {
 
             var events = this.config.personalization.clickedEvents,
                 keys = Object.keys(events);
@@ -191,7 +192,7 @@ requirejs([
             return {};
         },
 
-        bindViewedEvents: function() {
+        bindViewedEvents: function () {
 
             var self = this;
 
@@ -214,7 +215,7 @@ requirejs([
             }
         },
 
-        buildEventData: function(eventName, objectId, indexName, position = null, queryId = null) {
+        buildEventData: function (eventName, objectId, indexName, position = null, queryId = null) {
 
             var eventData = {
                 eventName: eventName,
@@ -233,7 +234,7 @@ requirejs([
             return eventData;
         },
 
-        trackClick: function(eventData) {
+        trackClick: function (eventData) {
             if (eventData.queryID) {
                 algoliaAnalytics.clickedObjectIDsAfterSearch(eventData);
             } else {
@@ -241,7 +242,7 @@ requirejs([
             }
         },
 
-        trackFilterClick: function(filters) {
+        trackFilterClick: function (filters) {
 
             var eventData = {
                 index: this.defaultIndexName,
@@ -252,11 +253,11 @@ requirejs([
             algoliaAnalytics.clickedFilters(eventData);
         },
 
-        trackView: function(eventData) {
+        trackView: function (eventData) {
             algoliaAnalytics.viewedObjectIDs(eventData);
         },
 
-        trackConversion: function(eventData) {
+        trackConversion: function (eventData) {
             if (eventData.queryID) {
                 algoliaAnalytics.convertedObjectIDsAfterSearch(eventData);
             } else {

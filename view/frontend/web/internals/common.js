@@ -50,7 +50,7 @@ var algolia = {
     }
 };
 
-requirejs(['algoliaBundle'], function(algoliaBundle) {
+requirejs(['domReady!', 'algoliaBundle'], function(domReady, algoliaBundle) {
     algoliaBundle.$(function ($) {
         window.isMobile = function() {
             var check = false;
@@ -71,6 +71,11 @@ requirejs(['algoliaBundle'], function(algoliaBundle) {
         };
 
         window.transformHit = function (hit, price_key, helper) {
+            // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+            if (!(window['algoliaConfig'] || null)) {
+                return;
+            }
+
             if (Array.isArray(hit.categories))
                 hit.categories = hit.categories.join(', ');
 
@@ -242,6 +247,11 @@ requirejs(['algoliaBundle'], function(algoliaBundle) {
             }
         };
 
+        // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+        if (!(window['algoliaConfig'] || null)) {
+            return;
+        }
+
         $(algoliaConfig.autocomplete.selector).each(function () {
             $(this).closest('form').submit(function (e) {
                 var query = $(this).find(algoliaConfig.autocomplete.selector).val();
@@ -287,6 +297,11 @@ requirejs(['algoliaBundle'], function(algoliaBundle) {
 
         /** Handle small screen **/
         $('body').on('click', '#refine-toggle', function () {
+            // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+            if (!(window['algoliaConfig'] || null)) {
+                return;
+            }
+
             $('#instant-search-facets-container').toggleClass('hidden-sm').toggleClass('hidden-xs');
             if ($(this).html().trim()[0] === '+')
                 $(this).html('- ' + algoliaConfig.translations.refine);
@@ -333,6 +348,11 @@ requirejs(['algoliaBundle'], function(algoliaBundle) {
             }),
             stateMapping: {
                 stateToRoute: function (uiState) {
+                    // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+                    if (!(window['algoliaConfig'] || null)) {
+                        return;
+                    }
+
                     var productIndexName = algoliaConfig.indexName + '_products';
                     var uiStateProductIndex = uiState[productIndexName] || {};
                     var routeParameters = {};
@@ -369,6 +389,11 @@ requirejs(['algoliaBundle'], function(algoliaBundle) {
                     return routeParameters;
                 },
                 routeToState: function (routeParameters) {
+                    // NIMA CHANGES - bugfix: https://angrobg.sentry.io/issues/4210508000/?project=6597971&query=is%3Aunresolved&referrer=issue-stream&stream_index=1
+                    if (!(window['algoliaConfig'] || null)) {
+                        return;
+                    }
+
                     var productIndexName = algoliaConfig.indexName + '_products';
                     var uiStateProductIndex = {}
 

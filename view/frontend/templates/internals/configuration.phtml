@@ -4,8 +4,9 @@
 
 $configuration = $block->getConfiguration();
 
+// disabled due to security issue: https://account.magento.com/scanner/report/view/id/62747
+// <script src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.includes%2CPromise" crossorigin="anonymous"></script>
 ?>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.includes%2CPromise" crossorigin="anonymous"></script>
 <script>
     <?php
     if ($configuration['instant']['enabled'] === true && $configuration['isSearchPage'] === true) :
